@@ -16,7 +16,7 @@ const RequestsPage = () => {
         
         const response = await axios.get('http://localhost:3000/api/companies?status=pending');
         
-        // Ensure response data is an array
+
         if (Array.isArray(response.data?.data)) {
           setRequests(response.data.data);
         } else if (Array.isArray(response.data)) {
@@ -26,7 +26,7 @@ const RequestsPage = () => {
         }
       } catch (err) {
         setError(err.response?.data?.message || err.message || 'Failed to fetch requests');
-        setRequests([]); // Reset to empty array
+        setRequests([]); 
       } finally {
         setLoading(false);
       }
@@ -41,7 +41,6 @@ const RequestsPage = () => {
         status: action
       });
       
-      // Refresh the requests list
       const response = await axios.get('http://localhost:3000/api/companies?status=pending');
       setRequests(Array.isArray(response.data?.data) ? response.data.data : response.data);
     } catch (err) {

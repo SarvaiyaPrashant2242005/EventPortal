@@ -3,6 +3,7 @@ import Packages from './components/Packages';
 import PackageForm from './components/PackageForm';
 import Login from './components/Login';
 import CompanySignup from './components/Signup';
+// import CompanyForm from './components/CompnayForm';
 import RequestsPage from './components/RequestsPage';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
         <Route path="/packages/new" element={<PackageForm />} />
         <Route path="/signup" element={<CompanySignup/>}/>
         <Route path="/requests" element={<RequestsPage/>}/>
-        {/* Add other routes as needed */}
+
       </Routes>
     </Router>
   );

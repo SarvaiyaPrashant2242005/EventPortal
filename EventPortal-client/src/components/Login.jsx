@@ -17,12 +17,7 @@ const Login = () => {
     setError('');
    
     try {
-      // Simple client-side validation
       if (email === 'admin@gmail.com' && password === 'admin') {
-        // In a real app, you would call your authentication API here
-        // const response = await axios.post('/api/auth/login', { email, password });
-        
-        // For demo purposes, we'll just simulate a successful login
         localStorage.setItem('isAuthenticated', 'true');
         navigate('/packages');
       } else {

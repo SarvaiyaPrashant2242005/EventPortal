@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const CompanySignup = () => {
-  // Form state
   const [formData, setFormData] = useState({
     companyName: '',
     companyEmail: '',
@@ -13,25 +12,22 @@ const CompanySignup = () => {
     zipCode: '',
     country: '',
     packageId: '',
-    adminName: '',
-    adminEmail: '',
-    adminPassword: ''
+    name: '',
+    email: '',
+    password: ''
   });
 
-  // API states
   const [packages, setPackages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingPackages, setIsLoadingPackages] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Fetch packages on component mount
   useEffect(() => {
     const fetchPackages = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/packages');
         
-        // Handle different API response structures
         if (Array.isArray(response.data)) {
           setPackages(response.data);
         } else if (Array.isArray(response.data?.data)) {
@@ -50,7 +46,6 @@ const CompanySignup = () => {
     fetchPackages();
   }, []);
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -59,7 +54,6 @@ const CompanySignup = () => {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -67,7 +61,6 @@ const CompanySignup = () => {
     setSuccess('');
 
     try {
-      // Prepare company data
       const companyData = {
         name: formData.companyName,
         email: formData.companyEmail,
@@ -81,19 +74,17 @@ const CompanySignup = () => {
         },
         packageId: formData.packageId,
         admins: [{
-          name: formData.adminName,
-          email: formData.adminEmail,
-          password: formData.adminPassword
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
         }]
       };
 
-      // Submit to your API endpoint
       const response = await axios.post('http://localhost:3000/api/companies', companyData);
       
       setSuccess('Company registered successfully!');
       console.log('Registration response:', response.data);
       
-      // Reset form
       setFormData({
         companyName: '',
         companyEmail: '',
@@ -104,9 +95,9 @@ const CompanySignup = () => {
         zipCode: '',
         country: '',
         packageId: '',
-        adminName: '',
-        adminEmail: '',
-        adminPassword: ''
+        name: '',
+        email: '',
+        password: ''
       });
     } catch (err) {
       const errorMessage = err.response?.data?.message || 
@@ -272,8 +263,8 @@ const CompanySignup = () => {
           <label style={{ display: 'block', marginBottom: '5px' }}>Admin Full Name:</label>
           <input
             type="text"
-            name="adminName"
-            value={formData.adminName}
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             required
             style={{ width: '100%', padding: '8px' }}
@@ -284,8 +275,8 @@ const CompanySignup = () => {
           <label style={{ display: 'block', marginBottom: '5px' }}>Admin Email:</label>
           <input
             type="email"
-            name="adminEmail"
-            value={formData.adminEmail}
+            name="email"
+            value={formData.email}
             onChange={handleChange}
             required
             style={{ width: '100%', padding: '8px' }}
@@ -296,8 +287,8 @@ const CompanySignup = () => {
           <label style={{ display: 'block', marginBottom: '5px' }}>Password:</label>
           <input
             type="password"
-            name="adminPassword"
-            value={formData.adminPassword}
+            name="password"
+            value={formData.password}
             onChange={handleChange}
             required
             style={{ width: '100%', padding: '8px' }}
